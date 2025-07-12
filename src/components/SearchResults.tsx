@@ -13,9 +13,10 @@ interface SearchResult {
 interface SearchResultsProps {
   results: SearchResult[];
   query: string;
+  totalRecords: number;
 }
 
-export const SearchResults = ({ results, query }: SearchResultsProps) => {
+export const SearchResults = ({ results, query, totalRecords }: SearchResultsProps) => {
   const highlightText = (text: string, query: string) => {
     if (!query.trim()) return text;
     
@@ -43,8 +44,11 @@ export const SearchResults = ({ results, query }: SearchResultsProps) => {
       <div className="text-center py-12 animate-fade-in">
         <FileText className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
         <h3 className="text-lg font-semibold text-foreground mb-2">Sonuç bulunamadı</h3>
-        <p className="text-muted-foreground">
-          "{query}" için herhangi bir kayıt bulunamadı. Farklı terimler deneyin.
+        <p className="text-muted-foreground mb-2">
+          "{query}" için herhangi bir kayıt bulunamadı.
+        </p>
+        <p className="text-sm text-muted-foreground">
+          💡 Daha genel terimler deneyin: "AI", "automation", "workflow" gibi
         </p>
       </div>
     );

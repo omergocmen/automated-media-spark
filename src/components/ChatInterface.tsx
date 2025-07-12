@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Search, Sparkles } from "lucide-react";
+import { Send, Search, Sparkles, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 interface ChatMessage {
   id: string;
@@ -15,18 +15,20 @@ interface ChatInterfaceProps {
   onSearch: (query: string) => void;
   searchResults: any[];
   isLoading: boolean;
+  suggestions?: string[];
 }
 
-export const ChatInterface = ({ onSearch, searchResults, isLoading }: ChatInterfaceProps) => {
+export const ChatInterface = ({ onSearch, searchResults, isLoading, suggestions = [] }: ChatInterfaceProps) => {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
       type: "system",
-      content: "Merhaba! Excel verilerinizde arama yapmak için bir şeyler yazın. Örneğin: 'n8n workflow', 'AI video', 'sosyal medya' gibi...",
+      content: "Merhaba! 2200 kayıtlı veritabanında arama yapmaya hazırım. Örneğin: 'n8n workflow', 'AI video', 'sosyal medya', 'telegram bot' gibi terimler arayabilirsiniz.",
       timestamp: new Date(),
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -115,27 +117,81 @@ export const ChatInterface = ({ onSearch, searchResults, isLoading }: ChatInterf
         <div ref={messagesEndRef} />
       </div>
 
+      {/* Popular Search Terms */}
+      {messages.length === 1 && (
+        <div className="px-4 pb-2">
+          <div className="flex items-center gap-2 mb-2">
+            <Lightbulb className="w-4 h-4 text-accent" />
+            <span className="text-xs text-muted-foreground">Popüler aramalar:</span>
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {['n8n workflow', 'AI video', 'sosyal medya', 'telegram bot', 'youtube automation', 'content creator'].map((term) => (
+              <Badge 
+                key={term}
+                variant="outline" 
+                className="text-xs cursor-pointer hover:bg-primary/10 hover:border-primary/20 transition-colors"
+                onClick={() => {
+                  setInputValue(term);
+                  onSearch(term);
+                }}
+              >
+                {term}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Input */}
       <div className="p-4 border-t border-border/50">
-        <form onSubmit={handleSubmit} className="flex space-x-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Aramak istediğiniz terimi yazın..."
-              className="pl-10 bg-input/50 border-border/50 focus:border-primary focus:ring-primary/20"
-              disabled={isLoading}
-            />
+        <form onSubmit={handleSubmit} className="space-y-3">
+          <div className="flex space-x-2">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+              <Input
+                value={inputValue}
+                onChange={(e) => {
+                  setInputValue(e.target.value);
+                  setShowSuggestions(e.target.value.length > 2);
+                }}
+                onFocus={() => setShowSuggestions(inputValue.length > 2)}
+                onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+                placeholder="Örn: 'AI video generator', 'telegram assistant', 'social media'..."
+                className="pl-10 bg-input/50 border-border/50 focus:border-primary focus:ring-primary/20"
+                disabled={isLoading}
+              />
+            </div>
+            <Button
+              type="submit"
+              size="icon"
+              className="bg-gradient-primary hover:bg-gradient-primary/90 border-none shadow-glow"
+              disabled={!inputValue.trim() || isLoading}
+            >
+              <Send className="w-4 h-4" />
+            </Button>
           </div>
-          <Button
-            type="submit"
-            size="icon"
-            className="bg-gradient-primary hover:bg-gradient-primary/90 border-none shadow-glow"
-            disabled={!inputValue.trim() || isLoading}
-          >
-            <Send className="w-4 h-4" />
-          </Button>
+          
+          {/* Search Suggestions */}
+          {showSuggestions && suggestions.length > 0 && (
+            <div className="bg-card/80 backdrop-blur-lg border border-border/50 rounded-lg p-2 animate-fade-in">
+              <div className="text-xs text-muted-foreground mb-1">Öneriler:</div>
+              <div className="flex flex-wrap gap-1">
+                {suggestions.slice(0, 5).map((suggestion, index) => (
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className="text-xs cursor-pointer hover:bg-accent/10 hover:border-accent/20 transition-colors"
+                    onClick={() => {
+                      setInputValue(suggestion);
+                      setShowSuggestions(false);
+                    }}
+                  >
+                    {suggestion}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
         </form>
       </div>
     </div>
