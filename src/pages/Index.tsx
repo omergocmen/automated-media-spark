@@ -58,24 +58,15 @@ const Index = () => {
                 <Database className="w-5 h-5 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-foreground">Excel Arama Uygulaması</h1>
-                <p className="text-sm text-muted-foreground">2200+ kayıtta akıllı arama</p>
+                <h1 className="text-xl font-bold text-foreground">Otomasyon Arama Uygulaması</h1>
+                <p className="text-sm text-muted-foreground">2000+ kayıtta akıllı arama</p>
               </div>
             </div>
             
             <div className="flex items-center space-x-3">
               <Badge variant="outline" className="bg-accent/10 text-accent border-accent/20">
-                {data.length} kayıt
+                Güncel olarak &nbsp;<u>{data.length}</u>&nbsp; kayıt bulunuyor
               </Badge>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={loadSampleData}
-                className="bg-secondary/50 hover:bg-secondary/70"
-              >
-                <Upload className="w-4 h-4 mr-2" />
-                Yeni Veri Yükle
-              </Button>
             </div>
           </div>
         </div>

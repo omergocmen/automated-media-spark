@@ -79,7 +79,7 @@ export const ChatInterface = ({ onSearch, searchResults, isLoading, suggestions 
       <div className="p-4 border-b border-border/50">
         <div className="flex items-center space-x-2">
           <Sparkles className="w-5 h-5 text-primary animate-glow-pulse" />
-          <h2 className="text-lg font-semibold text-foreground">Excel Arama Asistanı</h2>
+          <h2 className="text-lg font-semibold text-foreground">Otomasyon Asistanı</h2>
         </div>
       </div>
 

@@ -37,7 +37,7 @@ export const FileUpload = ({ onDataLoaded }: FileUploadProps) => {
         
         toast({
           title: "Dosya başarıyla yüklendi!",
-          description: `${jsonData.length} kayıt bulundu`,
+          description: `Güncel olarak ${jsonData.length} kayıt bulundu`,
         });
       } catch (error) {
         setIsUploading(false);
