@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { sampleData } from "@/data/sampleData";
 import { advancedSearch, getSearchSuggestions } from "@/utils/searchUtils";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface DataRecord {
   name: string;
@@ -67,6 +68,7 @@ const Index = () => {
               <Badge variant="outline" className="bg-accent/10 text-accent border-accent/20">
                 Güncel olarak &nbsp;<u>{data.length}</u>&nbsp; kayıt bulunuyor
               </Badge>
+              <ThemeToggle />
             </div>
           </div>
         </div>
