@@ -3,6 +3,7 @@ import { Send, Search, Sparkles, Lightbulb } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { sampleData } from "@/data/sampleData";
 
 interface ChatMessage {
   id: string;
@@ -30,6 +31,12 @@ export const ChatInterface = ({ onSearch, searchResults, isLoading, suggestions 
   const [inputValue, setInputValue] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const allTags = sampleData.flatMap(item => item.tags);
+  const uniqueTags = [...new Set(allTags)];
+
+  const allTechnologies = sampleData.flatMap(item => item.technologies);
+  const uniqueTechnologies = [...new Set(allTechnologies)];
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -122,20 +129,39 @@ export const ChatInterface = ({ onSearch, searchResults, isLoading, suggestions 
         <div className="px-4 pb-2">
           <div className="flex items-center gap-2 mb-2">
             <Lightbulb className="w-4 h-4 text-accent" />
-            <span className="text-xs text-muted-foreground">Popüler aramalar:</span>
+            <span className="text-xs text-muted-foreground">Popüler Etiketler:</span>
           </div>
           <div className="flex flex-wrap gap-1">
-            {['n8n workflow', 'AI video', 'sosyal medya', 'telegram bot', 'youtube automation', 'content creator'].map((term) => (
+            {uniqueTags.slice(0, 6).map((tag) => (
               <Badge 
-                key={term}
+                key={tag}
                 variant="outline" 
                 className="text-xs cursor-pointer hover:bg-primary/10 hover:border-primary/20 transition-colors"
                 onClick={() => {
-                  setInputValue(term);
-                  onSearch(term);
+                  setInputValue(tag);
+                  onSearch(tag);
                 }}
               >
-                {term}
+                {tag}
+              </Badge>
+            ))}
+          </div>
+          <div className="flex items-center gap-2 mt-4 mb-2">
+            <Sparkles className="w-4 h-4 text-accent" />
+            <span className="text-xs text-muted-foreground">Popüler Teknolojiler:</span>
+          </div>
+          <div className="flex flex-wrap gap-1">
+            {uniqueTechnologies.slice(0, 6).map((tech) => (
+              <Badge 
+                key={tech}
+                variant="outline" 
+                className="text-xs cursor-pointer hover:bg-primary/10 hover:border-primary/20 transition-colors"
+                onClick={() => {
+                  setInputValue(tech);
+                  onSearch(tech);
+                }}
+              >
+                {tech}
               </Badge>
             ))}
           </div>
