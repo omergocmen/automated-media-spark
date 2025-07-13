@@ -65,40 +65,37 @@ export const SearchResults = ({ results, query, totalRecords }: SearchResultsPro
         </Badge>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-3 sm:gap-4">
         {results.map((result, index) => (
           <Card 
             key={index} 
-            className="p-6 bg-gradient-card backdrop-blur-lg border border-border/50 hover:shadow-elevated transition-all duration-300 group animate-scale-in"
+            className="p-2 sm:p-6 bg-gradient-card backdrop-blur-lg border border-border/50 hover:shadow-elevated transition-all duration-300 group animate-scale-in rounded-lg sm:rounded-xl w-full max-w-full overflow-hidden"
             style={{ animationDelay: `${index * 100}ms` }}
           >
-            <div className="flex items-start justify-between mb-4">
-              <div className="flex-1">
-                <h4 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 sm:mb-4 gap-2 sm:gap-0 w-full max-w-full">
+              <div className="flex-1 min-w-0 w-full max-w-full">
+                <h4 className="text-base sm:text-lg font-semibold text-foreground mb-1 sm:mb-2 group-hover:text-primary transition-colors truncate w-full max-w-full">
                   {highlightText(result.name, query)}
                 </h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">
+                <p className="text-muted-foreground text-xs sm:text-sm leading-relaxed line-clamp-3 w-full max-w-full">
                   {highlightText(result.description, query)}
                 </p>
               </div>
-              
-              <div className="flex items-center space-x-2 ml-4">
-                <Badge className={`${getScoreColor(result.score)} flex items-center space-x-1`}>
+              <div className="flex items-center space-x-2 sm:ml-4">
+                <Badge className={`${getScoreColor(result.score)} flex items-center space-x-1 px-2 py-1 text-xs sm:text-sm`}>
                   <Star className="w-3 h-3" />
                   <span>{result.score}</span>
                 </Badge>
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <div className="text-xs text-muted-foreground truncate flex-1 mr-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 w-full max-w-full">
+              <div className="text-xs text-muted-foreground truncate flex-1 mr-0 sm:mr-4 w-full max-w-full">
                 {result.url}
               </div>
-              
               <Button
                 size="sm"
                 variant="outline"
-                className="bg-primary/10 hover:bg-primary/20 border-primary/20 text-primary hover:text-primary-foreground transition-all duration-300"
+                className="bg-primary/10 hover:bg-primary/20 border-primary/20 text-primary hover:text-primary-foreground transition-all duration-300 px-2 py-1 sm:px-3 sm:py-2 text-xs sm:text-sm"
                 onClick={() => window.open(result.url, '_blank')}
               >
                 <ExternalLink className="w-4 h-4 mr-2" />

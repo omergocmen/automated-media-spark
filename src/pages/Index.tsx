@@ -58,25 +58,24 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-background">
       {/* Header */}
-      <header className="border-b border-border/50 bg-card/30 backdrop-blur-lg sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-glow">
+      <header className="border-b border-border/50 bg-card/30 backdrop-blur-lg sticky top-0 z-50 w-full">
+        <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
+            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+              <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center shadow-glow flex-shrink-0">
                 <Database className="w-5 h-5 text-primary-foreground" />
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-foreground">Otomasyon Arama Uygulaması</h1>
-                <p className="text-sm text-muted-foreground">2000+ kayıtta akıllı arama</p>
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-xl font-bold text-foreground truncate">Otomasyon Arama Uygulaması</h1>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">2000+ kayıtta akıllı arama</p>
               </div>
             </div>
-            
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
               <Badge
                 variant="outline"
-                className="bg-primary/90 text-white border-primary/60 font-semibold shadow-sm dark:bg-white/10 dark:text-white dark:border-primary/60"
+                className="bg-primary/90 text-white border-primary/60 font-semibold shadow-sm dark:bg-white/10 dark:text-white dark:border-primary/60 px-2 py-1 text-xs sm:text-sm"
               >
-                Güncel olarak &nbsp;<u>{data.length}</u>&nbsp; kayıt bulunuyor
+                Güncel olarak&nbsp;<u> {data.length} </u>&nbsp;kayıt bulunuyor
               </Badge>
               <ThemeToggle />
             </div>
@@ -84,18 +83,18 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-5 gap-6 h-[calc(100vh-200px)]">
+      <main className="container mx-auto px-1 sm:px-4 py-4 sm:py-8">
+        <div className="flex flex-col lg:grid lg:grid-cols-5 gap-4 sm:gap-6 h-auto lg:h-[calc(100vh-200px)]">
           {/* Chat Interface */}
-          <div className="lg:col-span-2">
-            <div className="sticky top-24">
-              <div className="flex items-center space-x-2 mb-4">
+          <div className="lg:col-span-2 w-full mb-6 lg:mb-0">
+            <div className="sticky top-20 sm:top-24">
+              <div className="flex items-center gap-2 mb-4">
                 <MessageCircle className="w-5 h-5 text-primary" />
                 <span className="text-sm font-medium text-muted-foreground">
                   Gelişmiş Arama Motoru
                 </span>
               </div>
-              <div className="h-[500px]">
+              <div className="h-[320px] sm:h-[500px]">
                 <ChatInterface
                   onSearch={handleSearch}
                   searchResults={searchResults}
@@ -107,7 +106,7 @@ const Index = () => {
           </div>
 
           {/* Search Results */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 w-full">
             <div className="h-full overflow-y-auto">
               {/* Skor filtresi arayüzü (tek slider, temaya uygun ve belirgin başlık) */}
               <div className="mb-6 flex flex-col gap-2 animate-fade-in">
@@ -173,13 +172,13 @@ const Index = () => {
               )}
               {!hasSearched && (
                 <div className="flex flex-col items-center justify-center h-full text-center animate-fade-in">
-                  <div className="w-24 h-24 bg-gradient-primary/10 rounded-full flex items-center justify-center mb-6">
-                    <MessageCircle className="w-12 h-12 text-primary animate-glow-pulse" />
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 bg-gradient-primary/10 rounded-full flex items-center justify-center mb-6">
+                    <MessageCircle className="w-10 h-10 sm:w-12 sm:h-12 text-primary animate-glow-pulse" />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                  <h3 className="text-lg sm:text-xl font-semibold text-foreground mb-2">
                     Gelişmiş Aramaya Başlayın
                   </h3>
-                  <p className="text-muted-foreground max-w-md mb-4">
+                  <p className="text-muted-foreground max-w-md mb-4 text-xs sm:text-base">
                     Sol taraftaki chat arayüzünden arama yapmaya başlayın. 
                     Fuzzy search, partial matching ve akıllı öneriler ile en doğru sonuçları bulun.
                   </p>
