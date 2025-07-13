@@ -72,7 +72,10 @@ const Index = () => {
             </div>
             
             <div className="flex items-center space-x-3">
-              <Badge variant="outline" className="bg-accent/10 text-accent border-accent/20">
+              <Badge
+                variant="outline"
+                className="bg-primary/90 text-white border-primary/60 font-semibold shadow-sm dark:bg-white/10 dark:text-white dark:border-primary/60"
+              >
                 Güncel olarak &nbsp;<u>{data.length}</u>&nbsp; kayıt bulunuyor
               </Badge>
               <ThemeToggle />
